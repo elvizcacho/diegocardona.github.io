@@ -1,0 +1,327 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.19.3 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Event-Driven Architecture, a brief introduction - Dev</title>
+<meta name="description" content="6 min read">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Dev">
+<meta property="og:title" content="Event-Driven Architecture, a brief introduction">
+<meta property="og:url" content="http://localhost:4000/jekyll/update/2020/07/12/event-driven-architecture.html">
+
+
+  <meta property="og:description" content="6 min read">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2020-07-12T16:30:44-05:00">
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/jekyll/update/2020/07/12/event-driven-architecture.html">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": null,
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Dev Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Dev
+          
+        </a>
+        <ul class="visible-links"></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Event-Driven Architecture, a brief introduction">
+    <meta itemprop="description" content="6 min read">
+    <meta itemprop="datePublished" content="2020-07-12T16:30:44-05:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Event-Driven Architecture, a brief introduction
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>6 min read</p>
+
+<p><img alt="Image for post" class="s t u fo ai" src="https://miro.medium.com/max/680/1*Gj9SfHMqprQ3vKK9thHWrw.png" width="618" height="227" srcset="https://miro.medium.com/max/680/1*Gj9SfHMqprQ3vKK9thHWrw.png 552w,https://miro.medium.com/max/680/1*Gj9SfHMqprQ3vKK9thHWrw.png 618w" sizes="618px" /></p>
+
+<p>This post gives a brief introduction to the event-oriented software architecture and its purpose presenting three key concepts to consider: Contracts, Message Brokers and state machines; the examples are given talking about microservices and thinking about the implementation of the architecture for Backend applications.</p>
+
+<p>Let’s start with a formal definition:</p>
+
+<blockquote>
+  <p><strong>“An event-oriented architecture is a design pattern that allows a set of reactive systems to communicate with each other through the publication and consumption of events, which can be interpreted as state changes of objects.”</strong></p>
+</blockquote>
+
+<p>Now let’s see how contracts, message brokers and state machines work with this definition.</p>
+
+<hr />
+
+<h1 id="service-contracts"><strong>Service Contracts</strong></h1>
+
+<blockquote>
+  <p>…that allows a set of reactive systems to communicate with each other …</p>
+</blockquote>
+
+<p><strong>A contract</strong> is a definition or document that allows another entity, be it another microservice, scheduled work or client (app) to know the information to send to communicate with it and what it will receive in return, as its name indicates the contract is the agreement between the service and its subscribers.</p>
+
+<p><img alt="Image for post" class="pa ul s t u iz ai ji" width="711" height="441" src="https://miro.medium.com/max/782/0*sOOGw5IvSzsvSL4a.png" srcset="https://miro.medium.com/max/304/0*sOOGw5IvSzsvSL4a.png 276w, https://miro.medium.com/max/607/0*sOOGw5IvSzsvSL4a.png 552w, https://miro.medium.com/max/704/0*sOOGw5IvSzsvSL4a.png 640w, https://miro.medium.com/max/770/0*sOOGw5IvSzsvSL4a.png 700w" sizes="700px" /></p>
+
+<p>The systems can be of different sizes and categories according to their functions, their domains, etc., it is important to define a category with which to divide them and define a clear scope for each one, a system can go from a class with a specific task, sharing a base code with other small systems, up to a large system which inside can be composed of several services that works together to perform their function or business functionality.</p>
+
+<p><img alt="Image for post" class="pa ul s t u iz ai ji" width="751" height="381" src="https://miro.medium.com/max/826/0*5XhHgykgeMCjyXBe.png" srcset="https://miro.medium.com/max/304/0*5XhHgykgeMCjyXBe.png 276w, https://miro.medium.com/max/607/0*5XhHgykgeMCjyXBe.png 552w, https://miro.medium.com/max/704/0*5XhHgykgeMCjyXBe.png 640w, https://miro.medium.com/max/770/0*5XhHgykgeMCjyXBe.png 700w" sizes="700px" /></p>
+
+<p>For our use case, we will go into detail talking about microservices, therefore our definition and subsequent examples will talk about a group of microservices which communicate with each other, each microservice fulfills a particular task and must have an entry and a clear exit, this information is known as the <strong>contract</strong>.</p>
+
+<hr />
+
+<h1 id="message-broker-and-the-observer-pattern">Message Broker and the Observer Pattern</h1>
+
+<blockquote>
+  <p>… through the publication and consumption of events …</p>
+</blockquote>
+
+<p>With microservices and contracts clear, we have the need to communicate our microservices between them. It’s common that microservices not always have to be exposed to a final user or client application, it is very common for systems to communicate together to keep data integrity or to execute processes in a specific order that overflow the functionality of the current service. There are different strategies to communicate systems between them such as:</p>
+
+<ul>
+  <li>Rest</li>
+  <li>RestFull</li>
+  <li>Web sockets</li>
+  <li>Long polling</li>
+  <li><strong>Event-Driven</strong></li>
+  <li>Soap</li>
+  <li>ETC …</li>
+</ul>
+
+<p>We seek to choose the right strategy to solve the business problem, as this post is about event-driven architectures, so we will focus on the types of problems that this architecture can solve, such as updating markers and positions. In real-time of the SOME GAME standings, this problem is ideal for an event-oriented architecture since the score is modified before a remote event launched by a system that manages the game as such, in addition to the location of a player in the table of positions may change in the event of a score modification of X (minimum one) players.</p>
+
+<p>A system designed to react by events will be executed independent of the execution time of the one who triggered the event, in the same way, the system that triggered the event is entitled to continue its execution without waiting for the result of the execution of the system that runs in another plane (not to be confused with background execution of operating systems).</p>
+
+<p>The ability to be reactive is given by the <strong>observer design pattern</strong> which is a pattern of behavior, taking care of the communication of messages from one to many before a state change.</p>
+
+<p><img alt="Image for post" class="pa ul s t u iz ai ji" width="811" height="371" src="https://miro.medium.com/max/892/0*ebolaBV_rew0nF_J.png" srcset="https://miro.medium.com/max/304/0*ebolaBV_rew0nF_J.png 276w, https://miro.medium.com/max/607/0*ebolaBV_rew0nF_J.png 552w, https://miro.medium.com/max/704/0*ebolaBV_rew0nF_J.png 640w, https://miro.medium.com/max/770/0*ebolaBV_rew0nF_J.png 700w" sizes="700px" /></p>
+
+<p>For practical terms, the observer pattern is implemented in the Messages Brokers, which are intermediate systems that are responsible for the translation and broadcasting of messages to their subscribers, these systems can be seen as the means of communication between the subsystems giving the ability to publish events to the entire system network before any change of state without affecting its natural flow and also the ability to subscribe in the events that the subscriber really need which would work as triggers.</p>
+
+<p><img alt="Image for post" class="pa ul s t u iz ai ji" width="811" height="521" src="https://miro.medium.com/max/892/0*eBxIarvKABxnaa6m.png" srcset="https://miro.medium.com/max/304/0*eBxIarvKABxnaa6m.png 276w, https://miro.medium.com/max/607/0*eBxIarvKABxnaa6m.png 552w, https://miro.medium.com/max/704/0*eBxIarvKABxnaa6m.png 640w, https://miro.medium.com/max/770/0*eBxIarvKABxnaa6m.png 700w" sizes="700px" /></p>
+
+<hr />
+
+<h1 id="finite-state-machines">Finite state machines</h1>
+
+<blockquote>
+  <p>… Which can be interpreted as state changes of objects. …</p>
+</blockquote>
+
+<p>In the previous sections, it is said that an event is triggered by the state change of an object, objects have attributes and abilities, among their attributes depending on the object you could have a list of states among which you will always have a current state (Current) and the ability to change to another listed state, the state can have one or more following states (Next) depending on the business logic and parameters received and a previous state (Prev), events are published in the Message Broker at the moment a state change occurs from Current to any other possible state of the object, this attribute is known as a finite state machine.</p>
+
+<p><img alt="Image for post" class="pa ul s t u iz ai ji" width="489" height="433" src="https://miro.medium.com/max/538/0*lUoauS6vW24QXpJD.png" srcset="https://miro.medium.com/max/304/0*lUoauS6vW24QXpJD.png 276w, https://miro.medium.com/max/538/0*lUoauS6vW24QXpJD.png 489w" sizes="489px" /></p>
+
+<p>A finite state machine has a predetermined number of possible states, always has an initial state and the following state may vary depending on the parameters received by the machine.</p>
+
+<h1 id="next-steps">Next Steps</h1>
+
+<ul>
+  <li>If you are here because you are thinking about a specific problem you must first decide if an event-oriented architecture is the best solution to the business problem you have in mind.</li>
+  <li>On the other hand, if you are out of technical curiosity, find a small problem with which you can put this architecture in practice.</li>
+  <li>Choose an infrastructure on which to develop the project, it can be in the cloud, taking advantage of the AWS, Azure, Google Cloud, Digital Ocean, Etc trials; or instead configure local environments to emulate several microservices and configure a message broker for communication, the important thing is to document yourself in the best possible way and to start working with known infrastructures.</li>
+  <li>And as final step Iterate, suffer, learn, correct and repeat :)</li>
+</ul>
+
+<hr />
+
+<h1 id="conclusions">Conclusions</h1>
+
+<p>Event-driven systems have many use cases and can enter as a complement to an existing system, a system does not have to be designed from the beginning as an event-driven system, a parallel solution can be designed to remove additional processing or develop new functionalities without affecting the core of the existing system.</p>
+
+<p>This architecture is very useful in the process of decoupling monolithic systems and in the creation of systems based on microservices.<br />
+It is very important to work neatly in the design of the architecture to be lifted before starting the implementation since it allows the concrete definition of the participants of the system, their communications, their possible states, and subscriptions as well as preventing falling into the anti-pattern <strong>Large ball of mud</strong> since as this architecture can be observed, the Observer design pattern has as its central axis and during its development, there are other design patterns and software design definitions which ensures stability and structure when developed correctly.<br />
+Thanks to the infrastructure in the cloud, some providers have structured solutions to manage infrastructures of different sizes as Amazon does it with its SNS and Kinesis products, in addition to the fact that there are already several easy-access solutions on the market from which we can get profit like RabbitMQ and Apache Kafka among others.</p>
+
+<p><em>I hope this brief introduction touches your curiosity to go deep into this architecture design.</em></p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2020-07-12T16:30:44-05:00">July 12, 2020</time></p>
+
+
+      </footer>
+
+      
+
+      
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2020 Dev. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

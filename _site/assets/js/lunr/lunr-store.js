@@ -1,7 +1,7 @@
 var store = [{
-        "title": "Welcome to Jekyll!",
-        "excerpt":"You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when...","categories": ["jekyll","update"],
+        "title": "Event-Driven Architecture, a brief introduction",
+        "excerpt":"6 min read This post gives a brief introduction to the event-oriented software architecture and its purpose presenting three key concepts to consider: Contracts, Message Brokers and state machines; the examples are given talking about microservices and thinking about the implementation of the architecture for Backend applications. Let’s start with...","categories": ["jekyll","update"],
         "tags": [],
-        "url": "http://localhost:4000/jekyll/update/2020/07/12/welcome-to-jekyll.html",
+        "url": "http://localhost:4000/jekyll/update/2020/07/12/event-driven-architecture.html",
         "teaser": null
       }]

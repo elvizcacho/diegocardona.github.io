@@ -1,17 +1,98 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-07-12T19:40:35-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Your awesome title</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">Welcome to Jekyll!</title><link href="http://localhost:4000/jekyll/update/2020/07/12/welcome-to-jekyll.html" rel="alternate" type="text/html" title="Welcome to Jekyll!" /><published>2020-07-12T16:30:44-05:00</published><updated>2020-07-12T16:30:44-05:00</updated><id>http://localhost:4000/jekyll/update/2020/07/12/welcome-to-jekyll</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2020/07/12/welcome-to-jekyll.html">&lt;p&gt;You’ll find this post in your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.7">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-07-13T01:49:14-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Dev</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">Event-Driven Architecture, a brief introduction</title><link href="http://localhost:4000/jekyll/update/2020/07/12/event-driven-architecture.html" rel="alternate" type="text/html" title="Event-Driven Architecture, a brief introduction" /><published>2020-07-12T16:30:44-05:00</published><updated>2020-07-12T16:30:44-05:00</updated><id>http://localhost:4000/jekyll/update/2020/07/12/event-driven-architecture</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2020/07/12/event-driven-architecture.html">&lt;p&gt;6 min read&lt;/p&gt;
 
-&lt;p&gt;Jekyll requires blog post files to be named according to the following format:&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&quot;Image for post&quot; class=&quot;s t u fo ai&quot; src=&quot;https://miro.medium.com/max/680/1*Gj9SfHMqprQ3vKK9thHWrw.png&quot; width=&quot;618&quot; height=&quot;227&quot; srcset=&quot;https://miro.medium.com/max/680/1*Gj9SfHMqprQ3vKK9thHWrw.png 552w,https://miro.medium.com/max/680/1*Gj9SfHMqprQ3vKK9thHWrw.png 618w&quot; sizes=&quot;618px&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;YEAR-MONTH-DAY-title.MARKUP&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;This post gives a brief introduction to the event-oriented software architecture and its purpose presenting three key concepts to consider: Contracts, Message Brokers and state machines; the examples are given talking about microservices and thinking about the implementation of the architecture for Backend applications.&lt;/p&gt;
 
-&lt;p&gt;Where &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;YEAR&lt;/code&gt; is a four-digit number, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MONTH&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DAY&lt;/code&gt; are both two-digit numbers, and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MARKUP&lt;/code&gt; is the file extension representing the format used in the file. After that, include the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
+&lt;p&gt;Let’s start with a formal definition:&lt;/p&gt;
 
-&lt;p&gt;Jekyll also offers powerful support for code snippets:&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;“An event-oriented architecture is a design pattern that allows a set of reactive systems to communicate with each other through the publication and consumption of events, which can be interpreted as state changes of objects.”&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hi, &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Tom'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; prints 'Hi, Tom' to STDOUT.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;p&gt;Now let’s see how contracts, message brokers and state machines work with this definition.&lt;/p&gt;
 
-&lt;p&gt;Check out the &lt;a href=&quot;https://jekyllrb.com/docs/home&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://talk.jekyllrb.com/&quot;&gt;Jekyll Talk&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated.</summary></entry></feed>
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;service-contracts&quot;&gt;&lt;strong&gt;Service Contracts&lt;/strong&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;…that allows a set of reactive systems to communicate with each other …&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;A contract&lt;/strong&gt; is a definition or document that allows another entity, be it another microservice, scheduled work or client (app) to know the information to send to communicate with it and what it will receive in return, as its name indicates the contract is the agreement between the service and its subscribers.&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt=&quot;Image for post&quot; class=&quot;pa ul s t u iz ai ji&quot; width=&quot;711&quot; height=&quot;441&quot; src=&quot;https://miro.medium.com/max/782/0*sOOGw5IvSzsvSL4a.png&quot; srcset=&quot;https://miro.medium.com/max/304/0*sOOGw5IvSzsvSL4a.png 276w, https://miro.medium.com/max/607/0*sOOGw5IvSzsvSL4a.png 552w, https://miro.medium.com/max/704/0*sOOGw5IvSzsvSL4a.png 640w, https://miro.medium.com/max/770/0*sOOGw5IvSzsvSL4a.png 700w&quot; sizes=&quot;700px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The systems can be of different sizes and categories according to their functions, their domains, etc., it is important to define a category with which to divide them and define a clear scope for each one, a system can go from a class with a specific task, sharing a base code with other small systems, up to a large system which inside can be composed of several services that works together to perform their function or business functionality.&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt=&quot;Image for post&quot; class=&quot;pa ul s t u iz ai ji&quot; width=&quot;751&quot; height=&quot;381&quot; src=&quot;https://miro.medium.com/max/826/0*5XhHgykgeMCjyXBe.png&quot; srcset=&quot;https://miro.medium.com/max/304/0*5XhHgykgeMCjyXBe.png 276w, https://miro.medium.com/max/607/0*5XhHgykgeMCjyXBe.png 552w, https://miro.medium.com/max/704/0*5XhHgykgeMCjyXBe.png 640w, https://miro.medium.com/max/770/0*5XhHgykgeMCjyXBe.png 700w&quot; sizes=&quot;700px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;For our use case, we will go into detail talking about microservices, therefore our definition and subsequent examples will talk about a group of microservices which communicate with each other, each microservice fulfills a particular task and must have an entry and a clear exit, this information is known as the &lt;strong&gt;contract&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;message-broker-and-the-observer-pattern&quot;&gt;Message Broker and the Observer Pattern&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;… through the publication and consumption of events …&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;With microservices and contracts clear, we have the need to communicate our microservices between them. It’s common that microservices not always have to be exposed to a final user or client application, it is very common for systems to communicate together to keep data integrity or to execute processes in a specific order that overflow the functionality of the current service. There are different strategies to communicate systems between them such as:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Rest&lt;/li&gt;
+  &lt;li&gt;RestFull&lt;/li&gt;
+  &lt;li&gt;Web sockets&lt;/li&gt;
+  &lt;li&gt;Long polling&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Event-Driven&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;Soap&lt;/li&gt;
+  &lt;li&gt;ETC …&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We seek to choose the right strategy to solve the business problem, as this post is about event-driven architectures, so we will focus on the types of problems that this architecture can solve, such as updating markers and positions. In real-time of the SOME GAME standings, this problem is ideal for an event-oriented architecture since the score is modified before a remote event launched by a system that manages the game as such, in addition to the location of a player in the table of positions may change in the event of a score modification of X (minimum one) players.&lt;/p&gt;
+
+&lt;p&gt;A system designed to react by events will be executed independent of the execution time of the one who triggered the event, in the same way, the system that triggered the event is entitled to continue its execution without waiting for the result of the execution of the system that runs in another plane (not to be confused with background execution of operating systems).&lt;/p&gt;
+
+&lt;p&gt;The ability to be reactive is given by the &lt;strong&gt;observer design pattern&lt;/strong&gt; which is a pattern of behavior, taking care of the communication of messages from one to many before a state change.&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt=&quot;Image for post&quot; class=&quot;pa ul s t u iz ai ji&quot; width=&quot;811&quot; height=&quot;371&quot; src=&quot;https://miro.medium.com/max/892/0*ebolaBV_rew0nF_J.png&quot; srcset=&quot;https://miro.medium.com/max/304/0*ebolaBV_rew0nF_J.png 276w, https://miro.medium.com/max/607/0*ebolaBV_rew0nF_J.png 552w, https://miro.medium.com/max/704/0*ebolaBV_rew0nF_J.png 640w, https://miro.medium.com/max/770/0*ebolaBV_rew0nF_J.png 700w&quot; sizes=&quot;700px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;For practical terms, the observer pattern is implemented in the Messages Brokers, which are intermediate systems that are responsible for the translation and broadcasting of messages to their subscribers, these systems can be seen as the means of communication between the subsystems giving the ability to publish events to the entire system network before any change of state without affecting its natural flow and also the ability to subscribe in the events that the subscriber really need which would work as triggers.&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt=&quot;Image for post&quot; class=&quot;pa ul s t u iz ai ji&quot; width=&quot;811&quot; height=&quot;521&quot; src=&quot;https://miro.medium.com/max/892/0*eBxIarvKABxnaa6m.png&quot; srcset=&quot;https://miro.medium.com/max/304/0*eBxIarvKABxnaa6m.png 276w, https://miro.medium.com/max/607/0*eBxIarvKABxnaa6m.png 552w, https://miro.medium.com/max/704/0*eBxIarvKABxnaa6m.png 640w, https://miro.medium.com/max/770/0*eBxIarvKABxnaa6m.png 700w&quot; sizes=&quot;700px&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;finite-state-machines&quot;&gt;Finite state machines&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;… Which can be interpreted as state changes of objects. …&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;In the previous sections, it is said that an event is triggered by the state change of an object, objects have attributes and abilities, among their attributes depending on the object you could have a list of states among which you will always have a current state (Current) and the ability to change to another listed state, the state can have one or more following states (Next) depending on the business logic and parameters received and a previous state (Prev), events are published in the Message Broker at the moment a state change occurs from Current to any other possible state of the object, this attribute is known as a finite state machine.&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt=&quot;Image for post&quot; class=&quot;pa ul s t u iz ai ji&quot; width=&quot;489&quot; height=&quot;433&quot; src=&quot;https://miro.medium.com/max/538/0*lUoauS6vW24QXpJD.png&quot; srcset=&quot;https://miro.medium.com/max/304/0*lUoauS6vW24QXpJD.png 276w, https://miro.medium.com/max/538/0*lUoauS6vW24QXpJD.png 489w&quot; sizes=&quot;489px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;A finite state machine has a predetermined number of possible states, always has an initial state and the following state may vary depending on the parameters received by the machine.&lt;/p&gt;
+
+&lt;h1 id=&quot;next-steps&quot;&gt;Next Steps&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;If you are here because you are thinking about a specific problem you must first decide if an event-oriented architecture is the best solution to the business problem you have in mind.&lt;/li&gt;
+  &lt;li&gt;On the other hand, if you are out of technical curiosity, find a small problem with which you can put this architecture in practice.&lt;/li&gt;
+  &lt;li&gt;Choose an infrastructure on which to develop the project, it can be in the cloud, taking advantage of the AWS, Azure, Google Cloud, Digital Ocean, Etc trials; or instead configure local environments to emulate several microservices and configure a message broker for communication, the important thing is to document yourself in the best possible way and to start working with known infrastructures.&lt;/li&gt;
+  &lt;li&gt;And as final step Iterate, suffer, learn, correct and repeat :)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;conclusions&quot;&gt;Conclusions&lt;/h1&gt;
+
+&lt;p&gt;Event-driven systems have many use cases and can enter as a complement to an existing system, a system does not have to be designed from the beginning as an event-driven system, a parallel solution can be designed to remove additional processing or develop new functionalities without affecting the core of the existing system.&lt;/p&gt;
+
+&lt;p&gt;This architecture is very useful in the process of decoupling monolithic systems and in the creation of systems based on microservices.&lt;br /&gt;
+It is very important to work neatly in the design of the architecture to be lifted before starting the implementation since it allows the concrete definition of the participants of the system, their communications, their possible states, and subscriptions as well as preventing falling into the anti-pattern &lt;strong&gt;Large ball of mud&lt;/strong&gt; since as this architecture can be observed, the Observer design pattern has as its central axis and during its development, there are other design patterns and software design definitions which ensures stability and structure when developed correctly.&lt;br /&gt;
+Thanks to the infrastructure in the cloud, some providers have structured solutions to manage infrastructures of different sizes as Amazon does it with its SNS and Kinesis products, in addition to the fact that there are already several easy-access solutions on the market from which we can get profit like RabbitMQ and Apache Kafka among others.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;I hope this brief introduction touches your curiosity to go deep into this architecture design.&lt;/em&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">6 min read</summary></entry></feed>
